@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 import sqlite3
 import time
 import urllib.error
@@ -19,7 +20,7 @@ from pydantic import BaseModel, Field
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 DATA_DIR = BASE_DIR / "data"
-DB_PATH = DATA_DIR / "gallery.db"
+DB_PATH = Path("/tmp/gallery.db") if os.getenv("VERCEL") else DATA_DIR / "gallery.db"
 DOG_API = "https://dog.ceo/api"
 CACHE_TTL_SECONDS = 60 * 30
 FALLBACK_BREEDS = {

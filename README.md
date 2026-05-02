@@ -149,6 +149,23 @@ Submit these items:
 - Deployed live app link
 - README file with setup steps, features, and API details
 
+## Deploy on Vercel
+
+This repository includes `vercel.json`, so Vercel can run the FastAPI app as a Python serverless function.
+
+Steps:
+
+1. Go to `https://vercel.com`.
+2. Sign in with GitHub.
+3. Click **Add New** -> **Project**.
+4. Import this repository.
+5. Keep the default framework setting as **Other** if Vercel asks.
+6. Click **Deploy**.
+
+Vercel will install dependencies from `requirements.txt` and use `vercel.json` to route all requests to `app.py`.
+
+Important note: Vercel serverless storage is temporary. The app uses `/tmp/gallery.db` on Vercel, so likes and recently viewed data can reset after a function restart. For fully permanent likes/views on Vercel, connect a hosted database such as Supabase Postgres, Neon Postgres, or Vercel Postgres.
+
 ### Recommended GitHub Steps
 
 ```bash
