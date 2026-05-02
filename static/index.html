@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Advanced Dog Gallery</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" data-link>
+        <span class="brand-mark" aria-hidden="true">
+          <svg class="dog-logo" viewBox="0 0 64 64" role="img" aria-label="Dog face logo">
+            <path class="logo-ear" d="M14 18c-7 4-9 13-5 21 2 4 7 3 9-1l5-12c2-5-3-11-9-8Z" />
+            <path class="logo-ear" d="M50 18c7 4 9 13 5 21-2 4-7 3-9-1l-5-12c-2-5 3-11 9-8Z" />
+            <path class="logo-face" d="M18 31c0-11 7-20 14-20s14 9 14 20v9c0 8-6 14-14 14s-14-6-14-14v-9Z" />
+            <circle class="logo-eye" cx="26" cy="32" r="3" />
+            <circle class="logo-eye" cx="38" cy="32" r="3" />
+            <path class="logo-muzzle" d="M24 41c2-4 14-4 16 0 1 5-3 9-8 9s-9-4-8-9Z" />
+            <path class="logo-nose" d="M28 39c0-3 8-3 8 0 0 2-2 4-4 4s-4-2-4-4Z" />
+          </svg>
+        </span>
+        <span>
+          <strong>Dog Gallery</strong>
+          <small>Breed explorer</small>
+        </span>
+      </a>
+      <nav class="nav-actions">
+        <a href="/" data-link>Breeds</a>
+        <a href="/liked" data-link>Liked Images</a>
+        <button class="icon-button" id="themeToggle" type="button" title="Toggle dark mode" aria-label="Toggle dark mode">
+          <span class="sun">☀</span><span class="moon">◐</span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>Explore every dog breed, save favorites, and share gallery moments.</h1>
+        </div>
+        <div class="hero-panel">
+          <div>
+            <span id="breedCount">0</span>
+            <small>breeds loaded</small>
+          </div>
+          <div>
+            <span id="likeCount">0</span>
+            <small>liked images</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="recent-section" id="recentSection" hidden>
+        <div class="section-heading">
+          <h2>Recently Viewed</h2>
+          <button class="text-button" id="showRecent" type="button">Show all</button>
+        </div>
+        <div class="recent-strip" id="recentStrip"></div>
+      </section>
+
+      <section id="homeView" class="view">
+        <div class="toolbar">
+          <label class="search-wrap">
+            <span>Search</span>
+            <input id="searchInput" type="search" placeholder="Search breeds by name..." autocomplete="off" />
+          </label>
+          <div class="control-group" aria-label="Filter breeds">
+            <button class="chip active" data-filter="all" type="button">All Breeds</button>
+            <button class="chip" data-filter="liked" type="button">Liked Breeds</button>
+            <button class="chip" data-filter="recent" type="button">Recently Viewed</button>
+          </div>
+          <label class="select-wrap">
+            <span>Sort</span>
+            <select id="sortSelect">
+              <option value="az">Alphabetically A-Z</option>
+              <option value="za">Alphabetically Z-A</option>
+              <option value="likes">Most liked images</option>
+            </select>
+          </label>
+        </div>
+        <div id="breedGrid" class="breed-grid"></div>
+        <div class="load-more-wrap">
+          <button id="loadMoreBreeds" class="primary-button" type="button">Load more breeds</button>
+        </div>
+      </section>
+
+      <section id="breedView" class="view" hidden>
+        <div class="detail-head">
+          <div>
+            <a href="/" class="back-link" data-link>← Back to breeds</a>
+            <h2 id="breedTitle"></h2>
+            <p id="breedMeta"></p>
+          </div>
+          <button id="retryImages" class="secondary-button" type="button" hidden>Retry</button>
+        </div>
+        <div id="imageGrid" class="image-grid"></div>
+        <div id="emptyImages" class="empty-state" hidden>No images were returned for this breed.</div>
+        <div class="load-more-wrap">
+          <button id="loadMoreImages" class="primary-button" type="button">Load more images</button>
+        </div>
+      </section>
+
+      <section id="likedView" class="view" hidden>
+        <div class="section-heading">
+          <h2>Liked Images</h2>
+          <button id="refreshLikes" class="secondary-button" type="button">Refresh</button>
+        </div>
+        <div id="likedGrid" class="image-grid"></div>
+        <div id="emptyLikes" class="empty-state" hidden>Your liked images will appear here.</div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div id="zoomModal" class="zoom-modal" hidden>
+      <button id="closeZoom" class="close-button" type="button" aria-label="Close image preview">×</button>
+      <img id="zoomImage" alt="Large dog preview" />
+    </div>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
