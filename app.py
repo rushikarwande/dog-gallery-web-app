@@ -4,6 +4,7 @@ import asyncio
 import json
 import os
 import sqlite3
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -20,7 +21,7 @@ from pydantic import BaseModel, Field
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 DATA_DIR = BASE_DIR / "data"
-DB_PATH = Path("/tmp/gallery.db") if os.getenv("VERCEL") else DATA_DIR / "gallery.db"
+DB_PATH = Path(tempfile.gettempdir()) / "gallery.db" if os.getenv("VERCEL") else DATA_DIR / "gallery.db"
 DOG_API = "https://dog.ceo/api"
 CACHE_TTL_SECONDS = 60 * 30
 FALLBACK_BREEDS = {
@@ -90,7 +91,7 @@ app = FastAPI(
 
 @contextmanager
 def db() -> sqlite3.Connection:
-    DATA_DIR.mkdir(exist_ok=True)
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(DB_PATH)
     connection.row_factory = sqlite3.Row
     try:
